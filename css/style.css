@@ -446,3 +446,40 @@ h1, h2, h3 { font-family: var(--titulo); font-weight: 400; color: var(--vinho); 
   .perfil__marca, .faixa__trilho { transform: none !important; opacity: 1 !important; }
 }
 main { overflow-x: clip; }
+
+/* ============ Abertura ============ */
+.intro { display: none; }
+.intro-espera { overflow: hidden; }
+.intro-ativa .intro {
+  display: grid; place-items: center; position: fixed; inset: 0; z-index: 100;
+  background: var(--creme); animation: intro-fundo 2.5s linear forwards;
+}
+.intro__marca { display: grid; justify-items: center; gap: 18px; animation: intro-some .35s 1.45s ease forwards; }
+.intro__marca img {
+  width: min(300px, 64vw); height: auto;
+  clip-path: inset(100% 0 0 0);
+  animation: intro-logo 1s .15s cubic-bezier(.65, 0, .35, 1) forwards;
+}
+.intro__marca span {
+  font: 700 13px/1 var(--texto); letter-spacing: .6em; text-transform: uppercase; color: var(--vinho);
+  opacity: 0; animation: intro-frase .9s .7s cubic-bezier(.2, .75, .2, 1) forwards;
+}
+.intro__faixas { position: absolute; inset: 0; display: flex; }
+.intro__faixas i {
+  flex: 1; transform: translateY(101%);
+  animation: intro-faixa 1.15s cubic-bezier(.76, 0, .24, 1) forwards;
+  animation-delay: calc(1.3s + var(--n) * 70ms);
+}
+.intro__faixas i:nth-child(1) { --n: 0; background: var(--rosa); }
+.intro__faixas i:nth-child(2) { --n: 1; background: var(--rose); }
+.intro__faixas i:nth-child(3) { --n: 2; background: var(--vinho); }
+.intro__faixas i:nth-child(4) { --n: 3; background: var(--manteiga); }
+
+@keyframes intro-logo { to { clip-path: inset(0 0 0 0); transform: none; } from { transform: translateY(14px) scale(.96); } }
+@keyframes intro-frase { from { letter-spacing: .6em; } to { opacity: 1; letter-spacing: .2em; } }
+@keyframes intro-some { to { opacity: 0; transform: translateY(-10px) scale(.98); } }
+@keyframes intro-faixa { 0% { transform: translateY(101%); } 45%, 55% { transform: translateY(0); } 100% { transform: translateY(-101%); } }
+@keyframes intro-fundo { 0%, 76% { background-color: var(--creme); } 77%, 100% { background-color: transparent; } }
+
+/* Enquanto a abertura roda, a entrada do perfil espera */
+.intro-espera .perfil > *, .intro-espera .chips { animation-play-state: paused; }

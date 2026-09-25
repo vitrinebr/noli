@@ -33,7 +33,7 @@
     return base.includes('wa.me') ? `${base}?text=${encodeURIComponent(texto)}` : base;
   };
   const msgPeca = (p, cor) =>
-    `Oi, Nóli! 🌸 Vi no site e quero encomendar:\n• ${p.nome}${cor ? `\n• Cor: ${cor}` : ''}\n\nPode me passar valor e prazo?`;
+    `Oi, Nóli! 🌸 Vi no site e quero encomendar:\n• ${p.nome}${cor ? `\n• ${p.rotuloOpcoes || 'Cor'}: ${cor}` : ''}\n\nPode me passar valor e prazo?`;
 
   let timerToast;
   const toast = (t) => {
@@ -184,6 +184,7 @@
     const cores = $('#cu-cores');
     cores.replaceChildren();
     wrap.hidden = !(p.cores && p.cores.length > 1);
+    $('.rotulo', wrap).textContent = p.rotuloOpcoes || 'Cor';
     (p.cores || []).forEach((c) => {
       const b = document.createElement('button');
       b.className = 'cor';
@@ -196,7 +197,7 @@
       cores.append(b);
     });
 
-    const ficha = [['Material', 'Cerâmica fria selada com verniz'], ['Medidas', p.medidas], ['Prazo', p.prazo], ['Cor', p.cores?.length === 1 ? p.cores[0] : null]];
+    const ficha = [['Material', 'Cerâmica fria selada com verniz'], ['Medidas', p.medidas], ['Prazo', p.prazo], [p.rotuloOpcoes || 'Cor', p.cores?.length === 1 ? p.cores[0] : null]];
     $('#cu-ficha').innerHTML = ficha.filter(([, v]) => v).map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
 
     pintarBotaoSalvar();
@@ -305,9 +306,9 @@
   const observador = 'IntersectionObserver' in window && !semMovimento
     ? new IntersectionObserver((entradas) => {
       entradas.forEach((e) => {
-        if (!e.isIntersecting) return;
-        e.target.classList.add('visivel');
-        observador.unobserve(e.target);
+        if (e.isIntersecting) e.target.classList.add('visivel');
+        // saiu por baixo (rolou para cima): volta a esconder para animar de novo
+        else if (e.boundingClientRect.top > 0) e.target.classList.remove('visivel');
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 })
     : null;
@@ -353,6 +354,17 @@
   addEventListener('scroll', () => { if (!pedido) { pedido = true; requestAnimationFrame(aoRolar); } }, { passive: true });
 
   $$('.revelar').forEach((el) => (observador ? observador.observe(el) : el.classList.add('visivel')));
+
+  /* ---------- Abertura ---------- */
+  const html = document.documentElement;
+  if (html.classList.contains('intro-ativa')) {
+    const intro = $('#intro');
+    const liberar = () => html.classList.remove('intro-espera');
+    const terminar = () => { liberar(); html.classList.remove('intro-ativa'); };
+    setTimeout(liberar, 1900);
+    setTimeout(terminar, 2750);
+    intro.addEventListener('click', terminar); // toque para pular
+  }
 
   /* ---------- Início ---------- */
   montarChips();
