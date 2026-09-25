@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nóli — Peças feitas à mão</title>
+  <meta name="description" content="Nóli é um ateliê de cerâmica fria: porta-joias, incensários e porta-copos modelados e pintados à mão, sob encomenda.">
+  <meta name="theme-color" content="#ECE6DC">
+  <meta property="og:title" content="Nóli — Peças feitas à mão">
+  <meta property="og:description" content="Ateliê de cerâmica fria. Peças modeladas e pintadas à mão, sob encomenda.">
+  <meta property="og:image" content="assets/og.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Gloock&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Barra superior (estilo Pinterest) -->
+  <header class="topbar">
+    <a class="topbar__logo" href="#" data-home aria-label="Nóli — início">
+      <img src="assets/logo.png" alt="Nóli" width="84" height="40">
+    </a>
+    <nav class="topbar__nav" aria-label="Seções">
+      <a href="#" class="pill is-active" data-tab="pecas">Início</a>
+      <a href="#sobre" class="pill">O ateliê</a>
+      <a href="#encomendar" class="pill">Como encomendar</a>
+    </nav>
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.96 12.06l4.24 4.24-1.4 1.4-4.24-4.24A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z"/></svg>
+      <input id="busca" type="search" placeholder="Buscar porta-joias, incensários…" autocomplete="off">
+    </label>
+    <button class="icon-btn" data-tab="salvos" aria-label="Minhas peças salvas" title="Salvos">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.5-9.3C1.2 8.5 3.3 5 6.8 5c2 0 3.6 1.1 4.4 2.6h1.6C13.6 6.1 15.2 5 17.2 5c3.5 0 5.6 3.5 4.3 6.7C19.5 16.4 12 21 12 21Z"/></svg>
+      <span class="badge" id="badge-salvos" hidden>0</span>
+    </button>
+  </header>
+
+  <main>
+    <!-- Cabeçalho de perfil, como um perfil do Pinterest -->
+    <section class="perfil">
+      <img class="perfil__marca" src="assets/logo-tagline.png" alt="Nóli — peças feitas à mão" width="418" height="247">
+      <p class="perfil__handle">@atelie_noli · ateliê de cerâmica fria</p>
+      <p class="perfil__bio">Peças modeladas e pintadas à mão, uma a uma. Cada porta-joias, incensário e porta-copos sai do ateliê com pequenas marcas de quem fez — e é isso que faz dele único.</p>
+      <div class="perfil__acoes">
+        <a class="btn btn--primario" data-whats href="#">Encomendar</a>
+        <a class="btn btn--suave" id="link-instagram" href="#" target="_blank" rel="noopener">Instagram</a>
+      </div>
+
+      <div class="abas" role="tablist">
+        <button class="aba is-active" role="tab" data-tab="pecas" aria-selected="true">Peças</button>
+        <button class="aba" role="tab" data-tab="salvos" aria-selected="false">Salvos</button>
+      </div>
+    </section>
+
+    <!-- Categorias em chips -->
+    <div class="chips" id="chips" role="toolbar" aria-label="Filtrar por categoria"></div>
+
+    <!-- Grade em mosaico -->
+    <section class="mural" id="mural" aria-live="polite"></section>
+    <p class="vazio" id="vazio" hidden></p>
+
+    <!-- O ateliê -->
+    <section class="bloco" id="sobre">
+      <div class="bloco__img">
+        <img src="assets/noli-poster.jpg" alt="Logotipo Nóli repetido em rosa, rosé, vinho e amarelo" loading="lazy" width="1000" height="1000">
+      </div>
+      <div class="bloco__texto">
+        <span class="sobretitulo">O ateliê</span>
+        <h2>Feito à mão, devagar, com cor.</h2>
+        <p>A Nóli nasceu da vontade de ter em casa objetos com alma: feitos devagar, com detalhes em dourado e aquele toque de quem modelou com as mãos. Trabalhamos com <strong>cerâmica fria</strong> — uma massa modelável que seca ao ar, sem forno — o que permite detalhes delicados e peças leves e cheias de textura.</p>
+        <p>Tudo é modelado, lixado, pintado e selado no ateliê. Por isso, nenhuma peça é igual à outra.</p>
+        <ul class="selos">
+          <li><span>✺</span> Modelado à mão</li>
+          <li><span>✺</span> Pintado peça a peça</li>
+          <li><span>✺</span> Selado com verniz</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Como encomendar -->
+    <section class="passos" id="encomendar">
+      <span class="sobretitulo">Como encomendar</span>
+      <h2>Do mural para a sua casa</h2>
+      <ol>
+        <li><b>1</b><h3>Escolha</h3><p>Toque no ♥ para salvar as peças que você amou e monte a sua pasta.</p></li>
+        <li><b>2</b><h3>Chame no WhatsApp</h3><p>Na peça, toque em “Encomendar” — a mensagem já vai pronta, com o nome e a cor.</p></li>
+        <li><b>3</b><h3>Produção</h3><p>Cada peça leva de 7 a 15 dias para ficar pronta, porque seca e é pintada com calma.</p></li>
+        <li><b>4</b><h3>Entrega</h3><p>Retirada combinada ou envio por correio, bem embalado.</p></li>
+      </ol>
+    </section>
+
+    <!-- Cuidados -->
+    <section class="cuidados">
+      <h2>Cuidados com a cerâmica fria</h2>
+      <div class="cuidados__grade">
+        <p><span>☁︎</span>Limpe com pano seco ou levemente úmido.</p>
+        <p><span>☂︎</span>Evite água em excesso: nada de lavar ou deixar de molho.</p>
+        <p><span>☼</span>Evite sol forte direto por muito tempo.</p>
+        <p><span>✿</span>Incensários: tire as cinzas com um pincel macio ou pano seco.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <img src="assets/logo-creme.png" alt="Nóli" width="120" height="57" loading="lazy">
+    <p>Peças feitas à mão · cerâmica fria</p>
+    <p class="rodape__links">
+      <a data-whats href="#">WhatsApp</a> · <a id="link-instagram-2" href="#" target="_blank" rel="noopener">Instagram</a>
+    </p>
+    <p class="rodape__mini">© <span id="ano"></span> Nóli ateliê</p>
+  </footer>
+
+  <!-- Barra inferior no celular -->
+  <nav class="barra-app" aria-label="Navegação">
+    <button data-home aria-label="Início"><svg viewBox="0 0 24 24"><path d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3L12 3Z"/></svg></button>
+    <button data-focus-busca aria-label="Buscar"><svg viewBox="0 0 24 24"><path d="M10.5 3a7.5 7.5 0 0 1 5.96 12.06l4.24 4.24-1.4 1.4-4.24-4.24A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z"/></svg></button>
+    <button data-tab="salvos" aria-label="Salvos"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.3C1.2 8.5 3.3 5 6.8 5c2 0 3.6 1.1 4.4 2.6h1.6C13.6 6.1 15.2 5 17.2 5c3.5 0 5.6 3.5 4.3 6.7C19.5 16.4 12 21 12 21Z"/></svg></button>
+    <a data-whats href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.1 14.9l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 0 1 12 4Zm-3.2 4c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.6 5.6 4.9 2.8 1.1 3.3.9 3.9.8.6-.1 2-.8 2.2-1.6.3-.8.3-1.5.2-1.6-.1-.1-.3-.2-.6-.4l-2-1c-.3-.1-.5-.1-.7.2l-.9 1.1c-.2.2-.3.2-.6.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6Z"/></svg></a>
+  </nav>
+
+  <!-- Detalhe da peça (closeup) -->
+  <dialog class="closeup" id="closeup" aria-labelledby="cu-titulo">
+    <button class="closeup__fechar" data-fechar aria-label="Fechar">✕</button>
+    <div class="closeup__card">
+      <div class="closeup__img" id="cu-img"></div>
+      <div class="closeup__info">
+        <div class="closeup__topo">
+          <button class="icon-btn icon-btn--claro" id="cu-compartilhar" aria-label="Compartilhar">
+            <svg viewBox="0 0 24 24"><path d="M12 3l5 5-1.4 1.4L13 6.8V16h-2V6.8L8.4 9.4 7 8l5-5Zm-7 11h2v5h10v-5h2v7H5v-7Z"/></svg>
+          </button>
+          <button class="btn btn--salvar" id="cu-salvar">Salvar</button>
+        </div>
+        <span class="closeup__cat" id="cu-cat"></span>
+        <h2 id="cu-titulo"></h2>
+        <p class="closeup__preco" id="cu-preco"></p>
+        <p class="closeup__desc" id="cu-desc"></p>
+        <div class="closeup__cores" id="cu-cores-wrap">
+          <span class="rotulo">Cor</span>
+          <div class="cores" id="cu-cores"></div>
+        </div>
+        <dl class="closeup__ficha" id="cu-ficha"></dl>
+        <a class="btn btn--primario btn--largo" id="cu-whats" href="#" target="_blank" rel="noopener">Encomendar pelo WhatsApp</a>
+        <p class="closeup__nota">Sob encomenda · cada peça é única e pode variar levemente.</p>
+      </div>
+    </div>
+    <h3 class="closeup__mais">Mais como esta</h3>
+    <div class="mural mural--mini" id="cu-mais"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/pecas.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
