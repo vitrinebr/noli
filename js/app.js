@@ -348,7 +348,7 @@
 
   const topo = $('.topbar');
   const faixa = $('#faixa');
-  const secaoFaixa = faixa.parentElement;
+  const secaoFaixa = faixa && faixa.parentElement;
   let pedido = false;
   function aoRolar() {
     pedido = false;
@@ -357,6 +357,7 @@
     if (semMovimento) return;
     document.documentElement.style.setProperty('--rolagem', Math.min(y, 600).toFixed(1));
     // a faixa anda conforme passa pela tela
+    if (!faixa) return;
     const r = secaoFaixa.getBoundingClientRect();
     if (r.bottom > 0 && r.top < innerHeight) {
       const progresso = (innerHeight - r.top) / (innerHeight + r.height);
