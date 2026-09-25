@@ -402,9 +402,9 @@ h1, h2, h3 { font-family: var(--titulo); font-weight: 400; color: var(--vinho); 
 
 /* Logo do perfil sobe e some devagar (parallax) */
 .perfil__marca {
-  transform: translateY(calc(var(--rolagem, 0) * 0.25px)) scale(calc(1 - var(--rolagem, 0) * 0.00025));
-  opacity: calc(1 - var(--rolagem, 0) * 0.0016);
-  transform-origin: center top;
+  transform: translateY(calc(var(--rolagem, 0) * -0.12px)) scale(calc(1 - var(--rolagem, 0) * 0.0004));
+  opacity: calc(1 - var(--rolagem, 0) * 0.0022);
+  transform-origin: center bottom;
 }
 .js .perfil > * { animation: chegar .9s cubic-bezier(.2, .75, .2, 1) both; }
 .js .perfil > :nth-child(2) { animation-delay: .12s; }
