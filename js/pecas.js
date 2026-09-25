@@ -98,5 +98,5 @@ const NOTAS = [
   { depois: 1, titulo: 'Cada peça é única', texto: 'Modelada, lixada e pintada à mão. As pequenas diferenças são a assinatura do ateliê.', fundo: '#6E0003', cor: '#ECE6DC' },
   { depois: 3, imagem: 'assets/noli-poster.jpg', proporcao: '1/1' },
   { depois: 4, titulo: 'Sob encomenda', texto: 'Gostou de uma peça? Toque em “Encomendar” e a gente combina cor, tamanho e prazo pelo WhatsApp.', fundo: '#F8DA9A', cor: '#6E0003' },
-  { depois: 5, titulo: 'Quer algo só seu?', texto: 'Fazemos peças personalizadas: cores, iniciais, formatos. Conta a sua ideia.', fundo: '#EE7FAD', cor: '#4A0002', acao: 'Contar minha ideia' },
+  { depois: 5, titulo: 'Quer algo só seu?', texto: 'Aqui está só uma parte do que sai do ateliê. Fazemos outras peças e personalizamos cores, iniciais e formatos — conta a sua ideia.', fundo: '#EE7FAD', cor: '#4A0002', acao: 'Contar minha ideia' },
 ];
