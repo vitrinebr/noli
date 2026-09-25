@@ -1,5 +1,5 @@
 /* =========================================================
-   NÓLI — CONFIGURAÇÃO E CATÁLOGO
+   NÓLI: CONFIGURAÇÃO E CATÁLOGO
    Para mudar contatos, preços ou adicionar peças, edite só este arquivo.
    ========================================================= */
 
@@ -11,7 +11,7 @@ const NOLI = {
 };
 
 /* ---------------------------------------------------------
-   PEÇAS — como adicionar uma nova:
+   PEÇAS: como adicionar uma nova:
    1. Coloque a foto em assets/pecas/ (de preferência em pé, ~900px de largura)
    2. Copie um bloco { ... } abaixo e troque os dados
    - id: único, sem espaço nem acento (vira o link: site/#id)
@@ -32,7 +32,7 @@ const PECAS = [
     foto: 'assets/pecas/porta-joias-oval.jpg',
     proporcao: '9/16', foco: '50% 60%',
     preco: 0,
-    descricao: 'Bandejinha oval em cerâmica fria com textura suave e borda pintada em dourado. Guarda anéis, brincos e colares — e ainda enfeita a penteadeira.',
+    descricao: 'Bandejinha oval em cerâmica fria com textura suave e borda pintada em dourado. Guarda anéis, brincos e colares, e ainda enfeita a penteadeira.',
     medidas: 'Consultar',
     prazo: '7 a 15 dias',
     cores: ['Branco e dourado'],
@@ -45,7 +45,7 @@ const PECAS = [
     foto: 'assets/pecas/incensario-lua.jpg',
     proporcao: '3/4', foco: '50% 65%',
     preco: 0,
-    descricao: 'Base redonda com dois tubinhos para os incensos e uma meia-lua dourada. As cinzas caem no prato — prático e lindo no altar ou na estante.',
+    descricao: 'Base redonda com dois tubinhos para os incensos e uma meia-lua dourada. As cinzas caem no prato: prático e lindo no altar ou na estante.',
     medidas: 'Consultar',
     prazo: '7 a 15 dias',
     cores: ['Branco e dourado'],
@@ -98,5 +98,5 @@ const NOTAS = [
   { depois: 1, titulo: 'Cada peça é única', texto: 'Modelada, lixada e pintada à mão. As pequenas diferenças são a assinatura do ateliê.', fundo: '#6E0003', cor: '#ECE6DC' },
   { depois: 3, imagem: 'assets/noli-poster.jpg', proporcao: '1/1' },
   { depois: 4, titulo: 'Sob encomenda', texto: 'Gostou de uma peça? Toque em “Encomendar” e a gente combina cor, tamanho e prazo pelo WhatsApp.', fundo: '#F8DA9A', cor: '#6E0003' },
-  { depois: 5, titulo: 'Quer algo só seu?', texto: 'Aqui está só uma parte do que sai do ateliê. Fazemos outras peças e personalizamos cores, iniciais e formatos — conta a sua ideia.', fundo: '#EE7FAD', cor: '#4A0002', acao: 'Contar minha ideia' },
+  { depois: 5, titulo: 'Quer algo só seu?', texto: 'Aqui está só uma parte do que sai do ateliê. Fazemos outras peças e personalizamos cores, iniciais e formatos. Conta a sua ideia!', fundo: '#EE7FAD', cor: '#4A0002', acao: 'Contar minha ideia' },
 ];
