@@ -140,7 +140,7 @@ h1, h2, h3 { font-family: var(--titulo); font-weight: 400; color: var(--vinho); 
 }
 .pin {
   break-inside: avoid; margin: 0 0 20px; display: block; cursor: zoom-in;
-  animation: surgir .45s ease both;
+
 }
 @keyframes surgir { from { opacity: 0; transform: translateY(10px); } }
 .pin__img {
@@ -369,3 +369,80 @@ h1, h2, h3 { font-family: var(--titulo); font-weight: 400; color: var(--vinho); 
 }
 .pin__nome { font-family: var(--texto); color: var(--tinta); }
 .pin--nota .pin__img:has(> img) { padding: 0; }
+
+/* ============ Movimento ao rolar ============ */
+.js .revelar {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .8s ease, transform .9s cubic-bezier(.2, .75, .2, 1);
+  transition-delay: var(--atraso, 0ms);
+  will-change: opacity, transform;
+}
+.js .revelar--dir { transform: translateX(40px); }
+.js .revelar--esq { transform: translateX(-40px); }
+.js .revelar--zoom { transform: scale(.93); }
+.js .revelar.visivel { opacity: 1; transform: none; }
+
+/* Pins entram subindo, um pouco depois do outro */
+.js .pin.revelar { transform: translateY(40px) scale(.97); transition-duration: .7s, .8s; }
+.js .pin.revelar.visivel { transform: none; }
+
+/* Foto do pin aproxima de leve no hover */
+.pin__img img { transition: transform .6s cubic-bezier(.2, .75, .2, 1); }
+.pin:hover .pin__img img { transform: scale(1.045); }
+.pin__info { transition: transform .3s ease; }
+.pin:hover .pin__info { transform: translateX(3px); }
+.pin--nota .pin__img { transition: transform .4s cubic-bezier(.2, .75, .2, 1), box-shadow .4s; }
+.pin--nota:hover .pin__img { transform: translateY(-4px) rotate(-.6deg); box-shadow: var(--sombra); }
+.pin--nota:hover .pin__img img { transform: none; }
+
+/* Topo ganha sombra depois que a página rola */
+.topbar { transition: box-shadow .3s ease, background-color .3s ease; }
+.topbar.rolou { box-shadow: 0 6px 24px rgba(59, 16, 18, .08); }
+
+/* Logo do perfil sobe e some devagar (parallax) */
+.perfil__marca {
+  transform: translateY(calc(var(--rolagem, 0) * 0.25px)) scale(calc(1 - var(--rolagem, 0) * 0.00025));
+  opacity: calc(1 - var(--rolagem, 0) * 0.0016);
+  transform-origin: center top;
+}
+.js .perfil > * { animation: chegar .9s cubic-bezier(.2, .75, .2, 1) both; }
+.js .perfil > :nth-child(2) { animation-delay: .12s; }
+.js .perfil > :nth-child(3) { animation-delay: .2s; }
+.js .perfil > :nth-child(4) { animation-delay: .28s; }
+.js .perfil > :nth-child(5) { animation-delay: .36s; }
+.js .chips { animation: chegar .9s .44s cubic-bezier(.2, .75, .2, 1) both; }
+@keyframes chegar { from { opacity: 0; transform: translateY(18px); } }
+
+/* Faixa que desliza */
+.faixa {
+  margin: 48px 0 0; padding: 18px 0; overflow: hidden;
+  background: var(--vinho); color: var(--creme);
+  transform: rotate(-1.5deg); width: 104%; margin-left: -2%;
+}
+.faixa__trilho {
+  display: flex; align-items: center; gap: 28px; white-space: nowrap; width: max-content;
+  font-family: var(--titulo); font-size: clamp(24px, 3.2vw, 40px); line-height: 1;
+  transform: translateX(calc(var(--faixa, 0) * -1px));
+}
+.faixa i { font-style: normal; color: var(--rosa); font-size: .7em; }
+
+/* Passos e cuidados: leve elevação no hover */
+.passos li { transition: transform .35s cubic-bezier(.2, .75, .2, 1), box-shadow .35s; }
+.passos li:hover { transform: translateY(-6px) rotate(-.5deg); box-shadow: var(--sombra); }
+.bloco__img img { transition: transform .6s cubic-bezier(.2, .75, .2, 1); }
+.bloco__img:hover img { transform: rotate(-1.5deg) scale(1.02); }
+
+/* Botões com um "pulo" suave */
+.btn { transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), background-color .15s ease; }
+.btn:hover { transform: translateY(-2px); }
+
+@media (max-width: 640px) {
+  .faixa { margin-top: 32px; padding: 14px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .revelar, .js .pin.revelar { opacity: 1; transform: none; }
+  .perfil__marca, .faixa__trilho { transform: none !important; opacity: 1 !important; }
+}
+main { overflow-x: clip; }

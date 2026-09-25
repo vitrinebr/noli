@@ -300,6 +300,60 @@
   ['#link-instagram', '#link-instagram-2'].forEach((s) => { $(s).href = NOLI.instagram; });
   $('#ano').textContent = new Date().getFullYear();
 
+  /* ---------- Movimento ao rolar ---------- */
+  const semMovimento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const observador = 'IntersectionObserver' in window && !semMovimento
+    ? new IntersectionObserver((entradas) => {
+      entradas.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visivel');
+        observador.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 })
+    : null;
+
+  function revelar(elementos) {
+    elementos.forEach((el, i) => {
+      el.classList.add('revelar');
+      if (!observador) { el.classList.add('visivel'); return; }
+      // pins do mesmo "lote" entram em cascata
+      if (el.classList.contains('pin')) el.style.setProperty('--atraso', `${(i % 6) * 70}ms`);
+      observador.observe(el);
+    });
+  }
+
+  const renderOriginal = render;
+  render = function () {
+    renderOriginal();
+    revelar($$('#mural .pin'));
+  };
+  const abrirOriginal = abrir;
+  abrir = function (...args) {
+    abrirOriginal(...args);
+    revelar($$('#cu-mais .pin'));
+  };
+
+  const topo = $('.topbar');
+  const faixa = $('#faixa');
+  const secaoFaixa = faixa.parentElement;
+  let pedido = false;
+  function aoRolar() {
+    pedido = false;
+    const y = scrollY;
+    topo.classList.toggle('rolou', y > 8);
+    if (semMovimento) return;
+    document.documentElement.style.setProperty('--rolagem', Math.min(y, 600).toFixed(1));
+    // a faixa anda conforme passa pela tela
+    const r = secaoFaixa.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < innerHeight) {
+      const progresso = (innerHeight - r.top) / (innerHeight + r.height);
+      faixa.style.setProperty('--faixa', (progresso * faixa.scrollWidth * 0.33).toFixed(1));
+    }
+  }
+  addEventListener('scroll', () => { if (!pedido) { pedido = true; requestAnimationFrame(aoRolar); } }, { passive: true });
+
+  $$('.revelar').forEach((el) => (observador ? observador.observe(el) : el.classList.add('visivel')));
+
   /* ---------- Início ---------- */
   montarChips();
   gravarSalvos();

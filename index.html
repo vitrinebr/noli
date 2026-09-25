@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="pt-BR">
+<script>document.documentElement.classList.add('js')</script>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -63,12 +64,21 @@
     <section class="mural" id="mural" aria-live="polite"></section>
     <p class="vazio" id="vazio" hidden></p>
 
+    <!-- Faixa que desliza com a rolagem -->
+    <div class="faixa" aria-hidden="true">
+      <div class="faixa__trilho" id="faixa">
+        <span>Peças feitas à mão</span><i>✺</i><span>Cerâmica fria</span><i>✺</i><span>Detalhes em dourado</span><i>✺</i><span>Sob encomenda</span><i>✺</i>
+        <span>Peças feitas à mão</span><i>✺</i><span>Cerâmica fria</span><i>✺</i><span>Detalhes em dourado</span><i>✺</i><span>Sob encomenda</span><i>✺</i>
+        <span>Peças feitas à mão</span><i>✺</i><span>Cerâmica fria</span><i>✺</i><span>Detalhes em dourado</span><i>✺</i><span>Sob encomenda</span><i>✺</i>
+      </div>
+    </div>
+
     <!-- O ateliê -->
     <section class="bloco" id="sobre">
-      <div class="bloco__img">
+      <div class="bloco__img revelar revelar--zoom">
         <img src="assets/noli-poster.jpg" alt="Logotipo Nóli repetido em rosa, rosé, vinho e amarelo" loading="lazy" width="1000" height="1000">
       </div>
-      <div class="bloco__texto">
+      <div class="bloco__texto revelar revelar--dir">
         <span class="sobretitulo">O ateliê</span>
         <h2>Feito à mão, devagar, com cor.</h2>
         <p>A Nóli nasceu da vontade de ter em casa objetos com alma: feitos devagar, com detalhes em dourado e aquele toque de quem modelou com as mãos. Trabalhamos com <strong>cerâmica fria</strong>, uma massa modelável que seca ao ar, sem forno. Isso permite detalhes delicados e peças leves e cheias de textura.</p>
@@ -83,18 +93,18 @@
 
     <!-- Como encomendar -->
     <section class="passos" id="encomendar">
-      <span class="sobretitulo">Como encomendar</span>
-      <h2>Do mural para a sua casa</h2>
+      <span class="sobretitulo revelar">Como encomendar</span>
+      <h2 class="revelar">Do mural para a sua casa</h2>
       <ol>
-        <li><b>1</b><h3>Escolha</h3><p>Toque no ♥ para salvar as peças que você amou e monte a sua pasta.</p></li>
-        <li><b>2</b><h3>Chame no WhatsApp</h3><p>Na peça, toque em “Encomendar” e a mensagem já vai pronta, com o nome e a cor.</p></li>
-        <li><b>3</b><h3>Produção</h3><p>Cada peça leva de 7 a 15 dias para ficar pronta, porque seca e é pintada com calma.</p></li>
-        <li><b>4</b><h3>Entrega</h3><p>Retirada combinada ou envio por correio, bem embalado.</p></li>
+        <li class="revelar" style="--atraso:0ms"><b>1</b><h3>Escolha</h3><p>Toque no ♥ para salvar as peças que você amou e monte a sua pasta.</p></li>
+        <li class="revelar" style="--atraso:110ms"><b>2</b><h3>Chame no WhatsApp</h3><p>Na peça, toque em “Encomendar” e a mensagem já vai pronta, com o nome e a cor.</p></li>
+        <li class="revelar" style="--atraso:220ms"><b>3</b><h3>Produção</h3><p>Cada peça leva de 7 a 15 dias para ficar pronta, porque seca e é pintada com calma.</p></li>
+        <li class="revelar" style="--atraso:330ms"><b>4</b><h3>Entrega</h3><p>Retirada combinada ou envio por correio, bem embalado.</p></li>
       </ol>
     </section>
 
     <!-- Cuidados -->
-    <section class="cuidados">
+    <section class="cuidados revelar revelar--zoom">
       <h2>Cuidados com a cerâmica fria</h2>
       <div class="cuidados__grade">
         <p><span>☁︎</span>Limpe com pano seco ou levemente úmido.</p>
