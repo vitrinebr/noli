@@ -26,12 +26,15 @@
     : 'Sob consulta';
   const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const linkWhats = (texto) => {
-    const base = NOLI.whatsapp && !/^0+$|^550+$/.test(NOLI.whatsapp)
-      ? `https://wa.me/${NOLI.whatsapp}`
-      : NOLI.instagram; // sem número configurado, cai no Instagram
-    return base.includes('wa.me') ? `${base}?text=${encodeURIComponent(texto)}` : base;
-  };
+  // Com número de WhatsApp configurado, os pedidos vão para o WhatsApp com a mensagem pronta.
+  // Sem número, abrem direto o Direct do Instagram.
+  const temWhats = /^\d{12,13}$/.test(NOLI.whatsapp || '') && !/^550+$/.test(NOLI.whatsapp);
+  const CANAL = temWhats ? 'WhatsApp' : 'Direct';
+  const usuarioInsta = (NOLI.instagramUser || '').replace('@', '') || NOLI.instagram.split('/').filter(Boolean).pop();
+  const linkWhats = (texto) => temWhats
+    ? `https://wa.me/${NOLI.whatsapp}?text=${encodeURIComponent(texto)}`
+    : `https://ig.me/m/${usuarioInsta}`;
+  const attrMsg = (texto) => `data-msg="${esc(texto)}"`;
   const msgPeca = (p, cor) =>
     `Oi, Nóli! 🌸 Vi no site e quero encomendar:\n• ${p.nome}${cor ? `\n• ${p.rotuloOpcoes || 'Cor'}: ${cor}` : ''}\n\nPode me passar valor e prazo?`;
 
@@ -41,11 +44,13 @@
     el.textContent = t;
     el.classList.add('is-on');
     clearTimeout(timerToast);
-    timerToast = setTimeout(() => el.classList.remove('is-on'), 2200);
+    timerToast = setTimeout(() => el.classList.remove('is-on'), t.length > 40 ? 3600 : 2200);
   };
 
   const ICONE_CORACAO = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.3-8.9-8.7C1.9 8.3 3.9 5 7.1 5c1.9 0 3.4 1 4.1 2.4h1.6C13.5 6 15 5 16.9 5c3.2 0 5.2 3.3 4 6.3C19 15.7 12 20 12 20Z"/></svg>';
-  const ICONE_WHATS = $('.barra-app a[data-whats] svg').outerHTML;
+  const ICONE_DIRECT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.4 2.1a.9.9 0 0 0-.95-.2L2.2 8.6a.9.9 0 0 0-.06 1.67l7.7 3.5 3.5 7.7a.9.9 0 0 0 1.67-.06l6.7-19.25a.9.9 0 0 0-.21-.96ZM10.6 12.1 5.3 9.7l12.3-4.3-7 6.7Zm3.3 6.6-2.4-5.3 7-6.7-4.6 12Z"/></svg>';
+  const ICONE_WHATS = temWhats ? $('.barra-app a[data-whats] svg').outerHTML : ICONE_DIRECT;
+  if (!temWhats) $('.barra-app a[data-whats] svg').outerHTML = ICONE_DIRECT;
 
   /* ---------- Cards ---------- */
   function cardPeca(p) {
@@ -60,7 +65,7 @@
           <button class="btn btn--salvar ${salvo ? 'is-salvo' : ''}" data-salvar>${salvo ? 'Salvo' : 'Salvar'}</button>
           <div class="pin__rodape">
             <span class="pin__etiqueta">${esc(p.categoria)}</span>
-            <a class="pin__whats" href="${linkWhats(msgPeca(p))}" target="_blank" rel="noopener" aria-label="Encomendar ${esc(p.nome)} pelo WhatsApp" data-parar>${ICONE_WHATS}</a>
+            <a class="pin__whats" href="${linkWhats(msgPeca(p))}" ${attrMsg(msgPeca(p))} target="_blank" rel="noopener" aria-label="Encomendar ${esc(p.nome)} pelo ${CANAL}" data-parar>${ICONE_WHATS}</a>
           </div>
         </div>
         <button class="pin__coracao ${salvo ? 'is-salvo' : ''}" data-salvar aria-label="${salvo ? 'Remover dos salvos' : 'Salvar'}" aria-pressed="${salvo}">${ICONE_CORACAO}</button>
@@ -87,7 +92,7 @@
         <span class="nota__estrela">✺</span>
         <h3>${esc(n.titulo)}</h3>
         <p>${esc(n.texto)}</p>
-        ${n.acao ? `<a class="btn btn--primario nota__acao" href="${linkWhats('Oi, Nóli! Tenho uma ideia de peça personalizada: ')}" target="_blank" rel="noopener">${esc(n.acao)}</a>` : ''}
+        ${n.acao ? `<a class="btn btn--primario nota__acao" href="${linkWhats('Oi, Nóli! Tenho uma ideia de peça personalizada: ')}" ${attrMsg('Oi, Nóli! Tenho uma ideia de peça personalizada: ')} target="_blank" rel="noopener">${esc(n.acao)}</a>` : ''}
       </div>`;
     return el;
   }
@@ -166,6 +171,7 @@
 
   function atualizarWhats() {
     $('#cu-whats').href = linkWhats(msgPeca(atual, corEscolhida));
+    $('#cu-whats').dataset.msg = msgPeca(atual, corEscolhida);
   }
 
   function abrir(id, { empurrar = true } = {}) {
@@ -292,9 +298,15 @@
     $('#busca').focus();
   });
 
+  /* ---------- Rótulos do canal de pedido ---------- */
+  $('#cu-whats').textContent = `Encomendar pelo ${CANAL}`;
+  $$('.rodape [data-whats]').forEach((a) => { a.textContent = CANAL === 'Direct' ? 'Direct' : 'WhatsApp'; });
+  $$('.barra-app [data-whats]').forEach((a) => a.setAttribute('aria-label', CANAL));
+
   /* ---------- Links fixos ---------- */
   $$('[data-whats]').forEach((a) => {
     a.href = linkWhats('Oi, Nóli! 🌸 Vim pelo site e queria saber mais sobre as peças.');
+    a.dataset.msg = 'Oi, Nóli! 🌸 Vim pelo site e queria saber mais sobre as peças.';
     a.target = '_blank';
     a.rel = 'noopener';
   });
